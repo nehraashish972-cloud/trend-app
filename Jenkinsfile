@@ -5,6 +5,7 @@ pipeline {
         DOCKERHUB_CREDS = credentials('dockerhub-creds')
         IMAGE_NAME = "asheesh972/trend-app"
         IMAGE_TAG = "latest"
+        KUBECONFIG = "/var/lib/jenkins/.kube/config"
     }
     
     stages {
@@ -31,9 +32,9 @@ pipeline {
         
         stage('Deploy to EKS') {
             steps {
-                sh "kubectl apply -f k8s/deployment.yaml"
-                sh "kubectl apply -f k8s/service.yaml"
-                sh "kubectl rollout restart deployment/trend-app"
+                sh "kubectl --kubeconfig=/var/lib/jenkins/.kube/config apply -f k8s/deployment.yaml"
+                sh "kubectl --kubeconfig=/var/lib/jenkins/.kube/config apply -f k8s/service.yaml"
+                sh "kubectl --kubeconfig=/var/lib/jenkins/.kube/config rollout restart deployment/trend-app"
             }
         }
     }
