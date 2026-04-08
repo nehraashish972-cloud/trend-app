@@ -1,91 +1,33 @@
-DevOps Practice Project – Dist Directory
+# Trend App - Production Deployment
 
-This repository contains the production-ready build files (dist folder) for DevOps practice and deployment exercises.
+**Author:** Ashish Nehra  
+**Date:** April 09, 2026
 
-It is intentionally structured to help learners focus on CI/CD pipelines, hosting, containerization, and infrastructure setup rather than application development.
+## Architecture
+- **EC2**: Jenkins CI/CD Server
+- **EKS**: Kubernetes Cluster (2 nodes)
+- **Docker**: Containerized React App
+- **Terraform**: Infrastructure as Code
 
-📁 What This Repository Contains
+## Application URLs
+- App LoadBalancer: a5545670064694981b8baae069c83fd1-1306030366.ap-south-1.elb.amazonaws.com
+- Grafana Monitoring: a7cbcc5cc1e334967944b561270bc6f6-91628484.ap-south-1.elb.amazonaws.com:32699
 
-dist/ – Compiled and production-ready static files
+## Pipeline Flow
+1. GitHub push triggers Jenkins webhook
+2. Jenkins pulls code
+3. Docker builds image
+4. Pushes to DockerHub (asheesh972/trend-app)
+5. Deploys to EKS cluster
 
-HTML
+## Setup Instructions
+1. Clone repo: git clone https://github.com/nehraashish972-cloud/trend-app.git
+2. Terraform: cd terraform && terraform init && terraform apply
+3. EKS: eksctl create cluster --name trend-cluster --region ap-south-1
+4. Jenkins: http://13.201.37.75:8080
 
-CSS
+## Kubernetes LoadBalancer ARN
+a5545670064694981b8baae069c83fd1-1306030366.ap-south-1.elb.amazonaws.com
 
-JavaScript
-
-Assets (images, fonts, etc.)
-
-These files are ready to deploy to:
-
-Web servers (Nginx / Apache)
-
-Cloud platforms (AWS S3, Azure Blob, GCP Storage)
-
-Containerized environments (Docker + Nginx)
-
-Kubernetes clusters
-
-CI/CD pipeline demonstrations
-
-🎯 Purpose of This Repository
-
-This repository is designed for:
-
-DevOps beginners
-
-CI/CD practice
-
-Deployment pipeline testing
-
-Docker & Kubernetes deployment exercises
-
-Web server configuration practice
-
-Reverse proxy and load balancer setup
-
-The goal is to simulate real-world deployment scenarios using already built application files.
-
-❓ Why is there NO package.json?
-
-You may notice that this repository does not include:
-
-package.json
-
-node_modules
-
-Source code (src/)
-
-Build tools configuration
-
-✅ Reason:
-
-This repository only contains the final production build output (dist), not the development source code.
-
-In a typical project:
-
-Developers write source code.
-
-The project is built using tools like:
-
-Node.js
-
-Webpack
-
-Vite
-
-React (or other frameworks)
-
-A dist/ folder is generated.
-
-Only the production build is deployed to servers.
-
-This repository represents step 4 only.
-
-Since this is already the compiled output:
-
-No dependencies are required
-
-No build process is required
-
-No package.json is needed
+## Monitoring
+Grafana + Prometheus installed via Helm
