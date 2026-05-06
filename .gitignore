@@ -4,3 +4,9 @@ node_modules
 terraform.tfvars
 *.pem
 *.zip
+.terraform/
+*.tfstate
+*.tfstate.backup
+terraform.tfvars
+*.pem
+*.zip
